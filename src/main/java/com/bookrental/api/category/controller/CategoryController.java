@@ -2,6 +2,7 @@ package com.bookrental.api.category.controller;
 
 import com.bookrental.api.category.model.request.CategoryRequestDto;
 import com.bookrental.api.category.service.CategoryService;
+import com.bookrental.endpoints.EndPointConstants;
 import com.bookrental.response.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,14 +14,14 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("category")
+@RequestMapping(EndPointConstants.CATEGORY)
 public class CategoryController {
 
 
     private final CategoryService categoryService;
 
 
-    @PostMapping
+    @PostMapping(EndPointConstants.SAVE)
     public ResponseEntity<ResponseDto> createCategory(
             @Valid @RequestBody CategoryRequestDto categoryRequestDto
     ) {
@@ -32,7 +33,7 @@ public class CategoryController {
         return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
-    @GetMapping
+    @GetMapping(EndPointConstants.GET_ALL)
     public ResponseEntity<ResponseDto> getAllCategories() {
         var categories = categoryService.getAllCategories();
 
@@ -42,7 +43,7 @@ public class CategoryController {
         return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(EndPointConstants.GET_BY_ID)
     public ResponseEntity<ResponseDto> getCategoryById(@PathVariable Long id) {
         var category = categoryService.getCategoryById(id);
 
@@ -52,7 +53,7 @@ public class CategoryController {
         return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(EndPointConstants.UPDATE)
     public ResponseEntity<ResponseDto> updateCategory(
             @PathVariable Long id,
             @Valid @RequestBody CategoryRequestDto categoryRequestDto
@@ -65,7 +66,7 @@ public class CategoryController {
         return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(EndPointConstants.DELETE)
     public ResponseEntity<ResponseDto> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
         return ResponseEntity.ok(ResponseDto.success());

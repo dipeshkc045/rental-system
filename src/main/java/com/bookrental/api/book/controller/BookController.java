@@ -2,6 +2,7 @@ package com.bookrental.api.book.controller;
 
 import com.bookrental.api.book.model.request.BookRequestDto;
 import com.bookrental.api.book.service.BookService;
+import com.bookrental.endpoints.EndPointConstants;
 import com.bookrental.response.ResponseDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -16,12 +17,12 @@ import java.util.Map;
 @Tag(name = "Book", description = "Book management APIs")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("book")
+@RequestMapping(EndPointConstants.BOOK)
 public class BookController {
 
     private final BookService bookService;
 
-    @PostMapping
+    @PostMapping(EndPointConstants.SAVE)
     public ResponseEntity<ResponseDto> createBook(
             @Valid @RequestBody BookRequestDto bookRequestDto
     ) {
@@ -34,7 +35,7 @@ public class BookController {
                 .body(ResponseDto.success(responseData));
     }
 
-    @GetMapping
+    @GetMapping(EndPointConstants.GET_ALL)
     public ResponseEntity<ResponseDto> getAllBooks() {
         var books = bookService.getAllBookings();
 
@@ -44,7 +45,7 @@ public class BookController {
         return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(EndPointConstants.GET_BY_ID)
     public ResponseEntity<ResponseDto> getBookById(@PathVariable Long id) {
         var book = bookService.getBookingById(id);
 
@@ -54,7 +55,7 @@ public class BookController {
         return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(EndPointConstants.UPDATE)
     public ResponseEntity<ResponseDto> updateBook(
             @PathVariable Long id,
             @Valid @RequestBody BookRequestDto bookRequestDto
@@ -67,7 +68,7 @@ public class BookController {
         return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(EndPointConstants.DELETE)
     public ResponseEntity<ResponseDto> deleteBook(@PathVariable Long id) {
         bookService.deleteBooking(id);
         return ResponseEntity.ok(ResponseDto.success());

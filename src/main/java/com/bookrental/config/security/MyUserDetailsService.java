@@ -1,8 +1,8 @@
 package com.bookrental.config.security;
 
 
-import com.bookrental.api.security.model.User;
-import com.bookrental.api.security.repository.UserRepository;
+import com.bookrental.api.user.model.User;
+import com.bookrental.api.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package com.bookrental.api.security.model;
+package com.bookrental.api.user.model;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
@@ -14,14 +14,23 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "user_tb")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_tb_seq_gen")
     @SequenceGenerator(name = "user_tb_seq_gen", sequenceName = "user_tb_seq", allocationSize = 1)
     private Long id;
+
     private String name;
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
     private String password;
+
+    private String mobileNo;
+
+    private String address;
+
     private boolean isActive;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)

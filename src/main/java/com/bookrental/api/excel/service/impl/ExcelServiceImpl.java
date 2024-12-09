@@ -1,7 +1,8 @@
-package com.bookrental.api.excel.service;
+package com.bookrental.api.excel.service.impl;
 
 import com.bookrental.api.excel.helper.Helper;
 import com.bookrental.api.excel.model.request.BookTransactionRequestDTO;
+import com.bookrental.api.excel.service.ExcelService;
 import com.bookrental.api.transaction.model.entity.BookTransaction;
 import com.bookrental.api.transaction.repository.BookTransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,8 @@ public class ExcelServiceImpl implements ExcelService {
                         .code(bookTransaction.getCode())
                         .fromDate(bookTransaction.getFromDate())
                         .toDate(bookTransaction.getToDate())
-                        .bookId(bookTransaction.getBookId().getId())
-                        .memberId(bookTransaction.getMemberId().getId())
+                        .bookId(bookTransaction.getBook().getId())
+                        .userId(bookTransaction.getUser().getId())
                         .activeClosed(bookTransaction.isActiveClosed())
                         .rentStatus(bookTransaction.getRentStatus())
                         .build())

@@ -1,4 +1,4 @@
-package com.bookrental.api.security.model;
+package com.bookrental.api.user.model.requestDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.bookrental.config.security;
 
-import com.bookrental.api.security.model.User;
+import com.bookrental.api.user.model.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,8 +30,9 @@ public class MyUserDetails implements UserDetails {
         this.isActive = user.isActive();
         this.authorities = Arrays.stream(getRoles(user).split(","))
                 .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-        ;
+                .toList();
+
+
     }
 
     @Override
@@ -70,9 +71,6 @@ public class MyUserDetails implements UserDetails {
     }
 
     public String getRoles(User user) {
-
-        if (user.getRoles() == null || user.getRoles().isEmpty())
-            return "ROLE_ADMIN";
 
         return user.getRoles().stream()
                 .map(x -> "ROLE_" + x.getRole().getName())

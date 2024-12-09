@@ -19,6 +19,7 @@ public class BookTransactionRequestDTO {
     private RENT_TYPE rentStatus;
     private boolean activeClosed;
     private Long bookId;
-    private Long memberId;
+    private Long userId;
+
 
 }

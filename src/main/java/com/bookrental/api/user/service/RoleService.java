@@ -1,7 +1,7 @@
-package com.bookrental.api.security.service;
+package com.bookrental.api.user.service;
 
 
-import com.bookrental.api.security.model.Roles;
+import com.bookrental.api.user.model.Roles;
 
 public interface RoleService {
     Roles save (Roles roles);

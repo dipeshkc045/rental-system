@@ -1,6 +1,6 @@
-package com.bookrental.api.security.repository;
+package com.bookrental.api.user.repository;
 
-import com.bookrental.api.security.model.User;
+import com.bookrental.api.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-    Long id(Long id);
 }

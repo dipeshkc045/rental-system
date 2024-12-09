@@ -4,8 +4,8 @@ import com.bookrental.api.category.model.entity.Category;
 import com.bookrental.api.category.model.request.CategoryRequestDto;
 import com.bookrental.api.category.repository.CategoryRepository;
 import com.bookrental.api.category.service.CategoryService;
-import com.bookrental.resourceconverter.GenericMapper;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +14,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
-    private final GenericMapper genericMapper;
+    private final ModelMapper modelMapper;
 
 
     @Override
     public Category saveCategory(CategoryRequestDto categoryRequestDto) {
-        Category category = genericMapper.convert(categoryRequestDto, Category.class);
+        Category category = modelMapper.map(categoryRequestDto, Category.class);
         return categoryRepository.save(category);
     }
 

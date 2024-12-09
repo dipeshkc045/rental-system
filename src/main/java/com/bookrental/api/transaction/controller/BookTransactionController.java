@@ -30,7 +30,7 @@ public class BookTransactionController {
     public ResponseEntity<ResponseDto> createBook(
             @Valid @RequestBody BookTransactionRequestDto bookTransactionRequestDto
     ) {
-        var rentedBook = bookTransactionService.rentBook(bookTransactionRequestDto);
+        var rentedBook = bookTransactionService.processBookTransaction(bookTransactionRequestDto);
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("rent-book", rentedBook);
 

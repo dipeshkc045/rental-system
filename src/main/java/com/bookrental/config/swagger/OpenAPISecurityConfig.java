@@ -22,7 +22,7 @@ public class OpenAPISecurityConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Book Rental system")
-                        .description("Your API Description")
+                        .description("Book Rental system")
                         .version("1.0.0")
                         .contact(new Contact()
                                 .name("Dipesh Chaudhary")

@@ -1,6 +1,5 @@
-package com.bookrental.api.security.model;
+package com.bookrental.api.user.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

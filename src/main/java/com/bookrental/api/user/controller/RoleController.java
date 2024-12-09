@@ -1,13 +1,14 @@
-package com.bookrental.api.security.controller;
+package com.bookrental.api.user.controller;
 
-import com.bookrental.api.security.model.Roles;
-import com.bookrental.api.security.service.RoleService;
+import com.bookrental.api.user.model.Roles;
+import com.bookrental.api.user.service.RoleService;
+import com.bookrental.endpoints.EndPointConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("role")
+@RequestMapping(EndPointConstants.ROLE)
 public class RoleController {
 
 private final RoleService roleService;
@@ -17,7 +18,7 @@ private final RoleService roleService;
 
     }
 
-    @PostMapping("/{id}")
+    @GetMapping(EndPointConstants.GET_BY_ID)
     public Roles getById(@PathVariable Long id) {
         return roleService.getById(id);
     }

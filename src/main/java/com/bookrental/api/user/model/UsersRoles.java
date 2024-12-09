@@ -1,4 +1,4 @@
-package com.bookrental.api.security.model;
+package com.bookrental.api.user.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.Hidden;

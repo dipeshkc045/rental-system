@@ -1,5 +1,6 @@
 package com.bookrental.api.category.model.entity;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,7 @@ public class Category {
             sequenceName = "category_sequence",
             allocationSize = 1
     )
+    @Hidden
     private Long id;
     private String name;
     private String description;

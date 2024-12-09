@@ -1,13 +1,13 @@
-package com.bookrental.api.security.service.impl;
+package com.bookrental.api.user.service.impl;
 
-import com.bookrental.api.security.model.Roles;
-import com.bookrental.api.security.model.User;
-import com.bookrental.api.security.model.UserRoleRequestDto;
-import com.bookrental.api.security.model.UsersRoles;
-import com.bookrental.api.security.repository.RoleRepository;
-import com.bookrental.api.security.repository.UserRepository;
-import com.bookrental.api.security.repository.UserRoleRepository;
-import com.bookrental.api.security.service.UserRoleService;
+import com.bookrental.api.user.model.Roles;
+import com.bookrental.api.user.model.User;
+import com.bookrental.api.user.model.requestDto.UserRoleRequestDto;
+import com.bookrental.api.user.model.UsersRoles;
+import com.bookrental.api.user.repository.RoleRepository;
+import com.bookrental.api.user.repository.UserRepository;
+import com.bookrental.api.user.repository.UserRoleRepository;
+import com.bookrental.api.user.service.UserRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

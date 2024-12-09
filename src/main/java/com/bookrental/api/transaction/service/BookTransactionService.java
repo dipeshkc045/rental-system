@@ -5,7 +5,7 @@ import com.bookrental.api.transaction.model.request.BookTransactionRequestDto;
 
 public interface BookTransactionService {
 
-    BookTransaction rentBook(BookTransactionRequestDto bookTransactionRequestDto);
+    BookTransaction processBookTransaction(BookTransactionRequestDto bookTransactionRequestDto);
     void updateTransaction(BookTransactionRequestDto bookTransactionRequestDto);
 
 }

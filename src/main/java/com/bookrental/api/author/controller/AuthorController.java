@@ -2,6 +2,7 @@ package com.bookrental.api.author.controller;
 
 import com.bookrental.api.author.model.request.AuthorRequestDto;
 import com.bookrental.api.author.service.AuthorService;
+import com.bookrental.endpoints.EndPointConstants;
 import com.bookrental.response.ResponseDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -16,12 +17,12 @@ import java.util.Map;
 @Tag(name = "AUTHOR APIs")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("author")
+@RequestMapping(EndPointConstants.AUTHOR)
 public class AuthorController {
 
     private final AuthorService authorService;
 
-    @PostMapping
+    @PostMapping(EndPointConstants.SAVE)
     public ResponseEntity<ResponseDto> createAuthor(
             @Valid @RequestBody AuthorRequestDto authorRequestDto
     ) {
@@ -34,7 +35,7 @@ public class AuthorController {
                 .body(ResponseDto.success(responseData));
     }
 
-    @GetMapping
+    @GetMapping(EndPointConstants.GET_ALL)
     public ResponseEntity<ResponseDto> getAllAuthors() {
         var authors = authorService.getAllAuthors();
 
@@ -44,7 +45,7 @@ public class AuthorController {
         return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(EndPointConstants.GET_BY_ID)
     public ResponseEntity<ResponseDto> getAuthorById(@PathVariable Long id) {
         var author = authorService.getAuthorById(id);
 
@@ -54,7 +55,7 @@ public class AuthorController {
         return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(EndPointConstants.UPDATE)
     public ResponseEntity<ResponseDto> updateAuthor(
             @PathVariable Long id,
             @Valid @RequestBody AuthorRequestDto authorRequestDto
@@ -67,7 +68,7 @@ public class AuthorController {
         return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(EndPointConstants.DELETE)
     public ResponseEntity<ResponseDto> deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);
         return ResponseEntity.ok(ResponseDto.success());

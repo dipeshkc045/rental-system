@@ -24,6 +24,6 @@ public class BookTransactionRequestDto {
     private Date toDate;
     @Enumerated(EnumType.STRING)
     private RENT_TYPE rentStatus;
-    private Long memberId;
+    private Long userId;
     private boolean activeClosed;
 }

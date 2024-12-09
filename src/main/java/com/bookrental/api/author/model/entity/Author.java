@@ -25,6 +25,7 @@ public class Author {
             sequenceName = "author_sequence",
             allocationSize = 1
     )
+    @Hidden
     private Long id;
 
     private String name;
