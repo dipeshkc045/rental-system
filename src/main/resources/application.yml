@@ -1,0 +1,23 @@
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+
+server:
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    path: /index.html
+
+jwt:
+  secret: "your-base64-encoded-secret-here"
+  expiration: 86400000
