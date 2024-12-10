@@ -29,11 +29,20 @@ public class BookTransaction {
     private Long id;
 
     @Hidden
+    @Column(nullable = false,unique = true)
     private String code;
+
+    @Column(nullable = false)
     private Date fromDate;
+
+    @Column(nullable = false)
     private Date toDate;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private RENT_TYPE rentStatus;
+
+    @Column(nullable = false)
     private boolean activeClosed;
 
     @ManyToOne

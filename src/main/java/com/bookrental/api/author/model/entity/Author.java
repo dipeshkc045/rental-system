@@ -4,6 +4,7 @@ import com.bookrental.api.book.model.entity.Book;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,8 +29,15 @@ public class Author {
     @Hidden
     private Long id;
 
+    @Schema(nullable = false,defaultValue = "dipesh chaudhary")
     private String name;
+
+    @Schema(nullable = false,defaultValue = "dipeshc045@gmail.com",minLength = 13)
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
+    @Schema(nullable = false,defaultValue = "9868099976",maxLength = 13, minLength = 10)
     private Long mobileNumber;
 
 

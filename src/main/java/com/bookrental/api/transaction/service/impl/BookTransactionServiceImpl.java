@@ -18,6 +18,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.UUID;
 
 @Service
@@ -40,8 +43,11 @@ public class BookTransactionServiceImpl implements BookTransactionService {
         validateActiveTransaction(user, requestDto.getRentStatus());
 
         if (requestDto.getRentStatus().equals(RENT_TYPE.RENT)) {
+            validateRentDate(requestDto);
             return handleBookRenting(requestDto, book, user);
         } else if (requestDto.getRentStatus().equals(RENT_TYPE.RETURN)) {
+            validateReturnDateInPast(requestDto);
+            validateReturnDate(requestDto, book);
             return handleBookReturning(requestDto, book);
         } else {
             throw new IllegalArgumentException("Unknown rent status");
@@ -111,5 +117,41 @@ public class BookTransactionServiceImpl implements BookTransactionService {
         transaction.setRentStatus(RENT_TYPE.RETURN);
         transaction.setActiveClosed(false);
         bookTransactionRepository.save(transaction);
+    }
+
+
+    private void validateRentDate(BookTransactionRequestDto requestDto) {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate rentDate = requestDto.getFromDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (rentDate.isBefore(currentDate)) {
+            throw new RuntimeException("Cannot rent a book for a date in the past");
+        }
+    }
+
+    private void validateReturnDateInPast(BookTransactionRequestDto requestDto) {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate returnDate = requestDto.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (returnDate.isBefore(currentDate)) {
+            throw new RuntimeException("Cannot return the book with a past return date");
+        }
+    }
+
+    private void validateReturnDate(BookTransactionRequestDto requestDto, Book book) {
+        BookTransaction activeTransaction = bookTransactionRepository.findBookTransactionsByBookAndActiveClosedAndRentStatus(book,RENT_TYPE.RENT,true);
+        if (activeTransaction != null) {
+            LocalDate dueDate = activeTransaction.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate returnLocalDate = requestDto.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            if (returnLocalDate.isAfter(dueDate)) {
+                long daysLate = Duration.between(dueDate.atStartOfDay(), returnLocalDate.atStartOfDay()).toDays();
+                double fine = calculateFine(daysLate);
+                throw new RuntimeException("The book is overdue by " + daysLate + " days. Fine amount: " + fine);
+            }
+        }
+    }
+
+    private double calculateFine(long daysLate) {
+        double finePerDay = 2.0;
+        return daysLate * finePerDay;
     }
 }

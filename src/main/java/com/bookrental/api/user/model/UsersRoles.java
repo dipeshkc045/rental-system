@@ -18,20 +18,21 @@ public class UsersRoles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_role_tb_seq_gen")
-    @SequenceGenerator(name = "user_role_tb_seq_gen", sequenceName = "user_role_tb_seq",allocationSize = 1)
+    @SequenceGenerator(name = "user_role_tb_seq_gen", sequenceName = "user_role_tb_seq", allocationSize = 1)
     private Long id;
+
     private boolean isActive;
 
 
     @ManyToOne
     @Hidden
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     @JsonBackReference
     private User user;
 
     @ManyToOne
     @Hidden
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Roles role;
 
 }

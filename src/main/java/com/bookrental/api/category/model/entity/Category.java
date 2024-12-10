@@ -1,6 +1,7 @@
 package com.bookrental.api.category.model.entity;
 
 import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +22,9 @@ public class Category {
     )
     @Hidden
     private Long id;
+    @Schema(nullable = false , defaultValue = "Fiction",minLength = 3, maxLength = 25)
     private String name;
+    @Schema( defaultValue = "Fiction",minLength = 3, maxLength = 60)
     private String description;
 
 }
