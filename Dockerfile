@@ -1,5 +1,5 @@
 
-FROM maven:3.8.5-openjdk-17 AS build
+FROM openjdk:21-jdk-slim AS build
 
 WORKDIR /library-system
 
@@ -7,8 +7,7 @@ COPY . .
 
 RUN mvn clean package -DskipTests
 
-
-FROM openjdk:17-jdk-slim AS runtime
+FROM openjdk:21-jdk-slim AS runtime
 
 WORKDIR /library-system
 
