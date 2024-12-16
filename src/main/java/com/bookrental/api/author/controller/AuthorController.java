@@ -71,6 +71,11 @@ public class AuthorController {
     @DeleteMapping(EndPointConstants.DELETE)
     public ResponseEntity<ResponseDto> deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);
-        return ResponseEntity.ok(ResponseDto.success());
+
+        Map<String, Object> responseData = new HashMap<>();
+        responseData.put("authorId", id);
+        responseData.put("message", "Author deleted successfully");
+
+        return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 }

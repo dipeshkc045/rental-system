@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookTransactionRepository extends JpaRepository<BookTransaction, Long> {
-    BookTransaction findBookTransactionsByUserAndRentStatus(User user, RENT_TYPE rentStatus);
-    BookTransaction findBookTransactionsByBookAndActiveClosedAndRentStatus(Book book,RENT_TYPE rentType,Boolean activeClosed);
+  BookTransaction findBookTransactionsByUserAndRentStatus(User user, RENT_TYPE rentStatus);
+   BookTransaction findBookTransactionsByBookAndActiveClosedAndRentStatus(Book book, boolean activeClosed, RENT_TYPE rentStatus);
 }

@@ -19,5 +19,5 @@ springdoc:
     path: /index.html
 
 jwt:
-  secret: "your-base64-encoded-secret-here"
+  secret: dGhpc2lzYXNhbXBsZXNlY3JldGtleWZvcmp3dGF1dGhlbnRpY2F0aW9u
   expiration: 86400000

@@ -72,7 +72,10 @@ public class MemberController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDto> deleteMember(@PathVariable Long id) {
         memberService.deleteMember(id);
-        return ResponseEntity.ok(ResponseDto.success());
+        Map<String, Object> responseData = new HashMap<>();
+        responseData.put("MemberId", id);
+        responseData.put("message", "Member  deleted successfully");
+        return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 
 }

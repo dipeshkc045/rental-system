@@ -19,6 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_tb_seq_gen")
     @SequenceGenerator(name = "user_tb_seq_gen", sequenceName = "user_tb_seq", allocationSize = 1)
+    @Hidden
     private Long id;
 
     @Schema(nullable = false, defaultValue = "Fiction", minLength = 3, maxLength = 25)

@@ -1,11 +1,11 @@
 package com.bookrental.api.transaction.service;
 
-import com.bookrental.api.transaction.model.entity.BookTransaction;
 import com.bookrental.api.transaction.model.request.BookTransactionRequestDto;
+import com.bookrental.api.transaction.model.response.BookTransactionResponseDto;
 
 public interface BookTransactionService {
 
-    BookTransaction processBookTransaction(BookTransactionRequestDto bookTransactionRequestDto);
+    BookTransactionResponseDto processBookTransaction(BookTransactionRequestDto bookTransactionRequestDto);
     void updateTransaction(BookTransactionRequestDto bookTransactionRequestDto);
 
 }

@@ -71,6 +71,9 @@ public class BookController {
     @DeleteMapping(EndPointConstants.DELETE)
     public ResponseEntity<ResponseDto> deleteBook(@PathVariable Long id) {
         bookService.deleteBooking(id);
-        return ResponseEntity.ok(ResponseDto.success());
+        Map<String, Object> responseData = new HashMap<>();
+        responseData.put("BookId", id);
+        responseData.put("message", "Book deleted successfully");
+        return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 }

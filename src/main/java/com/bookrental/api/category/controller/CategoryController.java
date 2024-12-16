@@ -69,6 +69,9 @@ public class CategoryController {
     @DeleteMapping(EndPointConstants.DELETE)
     public ResponseEntity<ResponseDto> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
-        return ResponseEntity.ok(ResponseDto.success());
+        Map<String, Object> responseData = new HashMap<>();
+        responseData.put("CategoryId", id);
+        responseData.put("message", "Category deleted successfully");
+        return ResponseEntity.ok(ResponseDto.success(responseData));
     }
 }

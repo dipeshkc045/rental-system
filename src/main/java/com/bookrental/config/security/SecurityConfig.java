@@ -1,5 +1,8 @@
 package com.bookrental.config.security;
 
+import com.bookrental.response.ResponseDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.Map;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -28,15 +33,25 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
-                                "/swagger-resources/**", "/webjars/**", "/user/**","/role/**","/user-role/**").permitAll()
+                                "/swagger-resources/**", "/webjars/**", "/user/**", "/role/**", "/user-role/**").permitAll()
                         .requestMatchers("/book/**", "/excel/**").hasRole("LIBRARIAN")
                         .requestMatchers("/member/**").hasAnyRole("MEMBER", "ADMIN", "LIBRARIAN")
                         .requestMatchers("/category/**", "/author/**", "/role/**", "/user-role/**").hasAnyRole("ADMIN", "LIBRARIAN")
                         .requestMatchers("/transaction/**").hasRole("MEMBER")
-
                         .anyRequest().authenticated())
+                .exceptionHandling(configurer ->
+                        configurer.authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.setContentType("application/json");
+                            response.getWriter().write(
+                                    new ObjectMapper().writeValueAsString(
+                                            ResponseDto.error("UNAUTHORIZED",
+                                                    Map.of("message", "Authentication required"))
+                                    )
+                            );
+                        })
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -54,5 +69,4 @@ public class SecurityConfig {
         provider.setUserDetailsService(userDetailsService);
         return provider;
     }
-
 }

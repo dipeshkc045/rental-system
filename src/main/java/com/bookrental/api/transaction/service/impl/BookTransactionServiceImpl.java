@@ -6,11 +6,14 @@ import com.bookrental.api.book.repository.BookRepository;
 import com.bookrental.api.book.service.BookService;
 import com.bookrental.api.transaction.model.entity.BookTransaction;
 import com.bookrental.api.transaction.model.request.BookTransactionRequestDto;
+import com.bookrental.api.transaction.model.response.BookTransactionResponseDto;
 import com.bookrental.api.transaction.repository.BookTransactionRepository;
 import com.bookrental.api.transaction.service.BookTransactionService;
 import com.bookrental.api.user.model.User;
 import com.bookrental.api.user.service.UserService;
 import com.bookrental.enums.RENT_TYPE;
+import com.bookrental.exception.ActiveTransactionException;
+import com.bookrental.exception.BookOverdueException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -35,7 +38,7 @@ public class BookTransactionServiceImpl implements BookTransactionService {
 
     @Override
     @Transactional
-    public BookTransaction processBookTransaction(BookTransactionRequestDto requestDto) {
+    public BookTransactionResponseDto processBookTransaction(BookTransactionRequestDto requestDto) {
         Book book = getBookById(requestDto.getBookId());
         validateBookAvailability(book);
 
@@ -47,7 +50,7 @@ public class BookTransactionServiceImpl implements BookTransactionService {
             return handleBookRenting(requestDto, book, user);
         } else if (requestDto.getRentStatus().equals(RENT_TYPE.RETURN)) {
             validateReturnDateInPast(requestDto);
-            validateReturnDate(requestDto, book);
+              validateReturnDate(requestDto, book);
             return handleBookReturning(requestDto, book);
         } else {
             throw new IllegalArgumentException("Unknown rent status");
@@ -76,11 +79,12 @@ public class BookTransactionServiceImpl implements BookTransactionService {
     private void validateActiveTransaction(User user, RENT_TYPE rentStatus) {
         BookTransaction activeTransaction = bookTransactionRepository.findBookTransactionsByUserAndRentStatus(user, RENT_TYPE.RENT);
         if (activeTransaction != null && rentStatus == RENT_TYPE.RENT) {
-            throw new RuntimeException(String.format("You must return the rented book with ID %d before renting a new book", activeTransaction.getBook().getId()));
+            throw new ActiveTransactionException(String.format("You must return the rented book with ID %d before renting a new book", activeTransaction.getBook().getId()));
         }
     }
 
-    private BookTransaction handleBookRenting(BookTransactionRequestDto requestDto, Book book, User user) {
+
+    private BookTransactionResponseDto handleBookRenting(BookTransactionRequestDto requestDto, Book book, User user) {
         BookTransaction transaction = BookTransaction.builder()
                 .book(book)
                 .user(user)
@@ -93,13 +97,21 @@ public class BookTransactionServiceImpl implements BookTransactionService {
 
         BookTransaction savedTransaction = bookTransactionRepository.save(transaction);
         updateBookStock(book, -1);
-        return savedTransaction;
+
+        return BookTransactionResponseDto.builder()
+                .transactionId(savedTransaction.getId())
+                .bookId(book.getId())
+                .userId(user.getId())
+                .transactionDate(savedTransaction.getFromDate().toString())
+                .dueDate(savedTransaction.getToDate().toString())
+                .status(savedTransaction.getRentStatus().toString())
+                .build();
     }
 
-    private BookTransaction handleBookReturning(BookTransactionRequestDto requestDto, Book book) {
+    private BookTransactionResponseDto handleBookReturning(BookTransactionRequestDto requestDto, Book book) {
         updateTransaction(requestDto);
         updateBookStock(book, 1);
-        return BookTransaction.builder().book(book).build();
+        return BookTransactionResponseDto.builder().bookId(requestDto.getBookId()).build();
     }
 
     private void updateBookStock(Book book, int adjustment) {
@@ -137,7 +149,7 @@ public class BookTransactionServiceImpl implements BookTransactionService {
     }
 
     private void validateReturnDate(BookTransactionRequestDto requestDto, Book book) {
-        BookTransaction activeTransaction = bookTransactionRepository.findBookTransactionsByBookAndActiveClosedAndRentStatus(book,RENT_TYPE.RENT,true);
+        BookTransaction activeTransaction = bookTransactionRepository.findBookTransactionsByBookAndActiveClosedAndRentStatus(book, true, RENT_TYPE.RENT);
         if (activeTransaction != null) {
             LocalDate dueDate = activeTransaction.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate returnLocalDate = requestDto.getToDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -145,10 +157,11 @@ public class BookTransactionServiceImpl implements BookTransactionService {
             if (returnLocalDate.isAfter(dueDate)) {
                 long daysLate = Duration.between(dueDate.atStartOfDay(), returnLocalDate.atStartOfDay()).toDays();
                 double fine = calculateFine(daysLate);
-                throw new RuntimeException("The book is overdue by " + daysLate + " days. Fine amount: " + fine);
+                throw new BookOverdueException("The book is overdue by " + daysLate + " days. Fine amount: " + fine, daysLate, fine);
             }
         }
     }
+
 
     private double calculateFine(long daysLate) {
         double finePerDay = 2.0;
