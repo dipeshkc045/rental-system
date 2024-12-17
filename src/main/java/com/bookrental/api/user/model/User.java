@@ -67,7 +67,6 @@ public class User {
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%]).{8,}$",
             message = "Password must contain uppercase, lowercase, number, and special character")
     @Column(name = "password", nullable = false)
-    @JsonIgnore
     @Schema(description = "User's password (will be hashed)", minLength = 8, maxLength = 255)
     private String password;
 
