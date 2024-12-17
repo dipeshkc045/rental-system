@@ -3,6 +3,8 @@ package com.bookrental.api.user.model;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.util.Set;
@@ -26,12 +28,15 @@ public class User {
     private String name;
 
     @Column(name = "email", nullable = false, unique = true)
+    @Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
     private String email;
 
     @Column(name = "password", nullable = false, unique = true)
+    @Schema(minLength = 5,maxLength = 15)
     private String password;
 
-    @Column(name = "mobile_no", unique = true )
+    @Column(name = "mobile_no", unique = true)
+    @Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$")
     @Schema(defaultValue ="9868090501", minLength = 10, maxLength = 13)
     private String mobileNo;
 
