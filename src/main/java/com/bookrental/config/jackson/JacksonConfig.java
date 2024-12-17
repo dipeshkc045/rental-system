@@ -1,4 +1,4 @@
-package com.bookrental.config;
+package com.bookrental.config.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

@@ -4,6 +4,8 @@ import com.bookrental.api.user.model.Roles;
 import com.bookrental.api.user.service.RoleService;
 import com.bookrental.endpoints.EndPointConstants;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -13,13 +15,18 @@ public class RoleController {
 
 private final RoleService roleService;
     @PostMapping("/save")
-    public Roles save(@RequestBody Roles roles) {
-        return roleService.save(roles);
-
+    public ResponseEntity<Roles> save(@RequestBody Roles roles) {
+        Roles savedRoles = roleService.save(roles);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(savedRoles);
     }
 
     @GetMapping(EndPointConstants.GET_BY_ID)
-    public Roles getById(@PathVariable Long id) {
-        return roleService.getById(id);
+    public ResponseEntity<Roles> getById(@PathVariable Long id) {
+        Roles roles = roleService.getById(id);
+        return ResponseEntity
+                .ok()
+                .body(roles);
     }
 }

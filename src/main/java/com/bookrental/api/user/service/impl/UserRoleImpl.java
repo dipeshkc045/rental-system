@@ -10,6 +10,7 @@ import com.bookrental.api.user.repository.UserRoleRepository;
 import com.bookrental.api.user.service.UserRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class UserRoleImpl implements UserRoleService {
     private final RoleRepository roleRepository;
 
     @Override
+    @Transactional
     public UsersRoles save(UserRoleRequestDto userRole) {
         User user = userRepository.findById(userRole.getUserId()).orElse(null);
         Roles role = roleRepository.findById(userRole.getRoleId()).orElse(null);

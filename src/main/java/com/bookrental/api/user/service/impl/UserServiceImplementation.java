@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -21,6 +22,7 @@ public class UserServiceImplementation implements UserService {
     private final UserRepository userRepository;
 
     @Override
+    @Transactional
     public User save(User user) {
         User savedUser = User.builder()
                 .name(user.getName())

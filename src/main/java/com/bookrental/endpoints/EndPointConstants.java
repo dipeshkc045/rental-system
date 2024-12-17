@@ -9,8 +9,8 @@ public class EndPointConstants {
     public static final String SAVE = "/save";
     public static final String UPDATE = "/update";
     public static final String DELETE = "/delete";
-    public static final String GET_ALL = "/getAll";
-    public static final String GET_BY_ID = "/getById";
+    public static final String GET_ALL = "/get-all";
+    public static final String GET_BY_ID = "/get-by-id/{id}";
 
 
     public static final String AUTHOR = "/author";

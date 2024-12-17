@@ -2,7 +2,7 @@ package com.bookrental.exception;
 
 import lombok.Getter;
 
-
+@Getter
 public class ActiveRentalException extends RuntimeException {
     private final Long bookId;
 
@@ -11,7 +11,4 @@ public class ActiveRentalException extends RuntimeException {
         this.bookId = bookId;
     }
 
-    public Long getBookId() {
-        return bookId;
-    }
 }

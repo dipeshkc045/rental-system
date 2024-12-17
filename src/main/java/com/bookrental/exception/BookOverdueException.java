@@ -1,5 +1,8 @@
 package com.bookrental.exception;
 
+import lombok.Getter;
+
+@Getter
 public class BookOverdueException extends RuntimeException {
     private final long daysLate;
     private final double fine;
@@ -10,11 +13,4 @@ public class BookOverdueException extends RuntimeException {
         this.fine = fine;
     }
 
-    public long getDaysLate() {
-        return daysLate;
-    }
-
-    public double getFine() {
-        return fine;
-    }
 }

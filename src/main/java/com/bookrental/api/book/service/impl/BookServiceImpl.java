@@ -8,8 +8,8 @@ import com.bookrental.api.book.repository.BookRepository;
 import com.bookrental.api.book.service.BookService;
 import com.bookrental.api.category.model.entity.Category;
 import com.bookrental.api.category.repository.CategoryRepository;
+import com.bookrental.resourceconverter.GenericMapper;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +22,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
     private final AuthorRepository authorRepository;
-    private final ModelMapper modelMapper;
+    private final GenericMapper genericMapper;
 
     @Transactional
     @Override
@@ -31,7 +31,7 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
         List<Author> authorList = authorRepository.findAllById(bookRequestDto.getAuthors());
-        Book book = modelMapper.map(bookRequestDto, Book.class);
+        Book book = genericMapper.convert(bookRequestDto, Book.class);
         book.setCategory(category);
         book.setAuthors(authorList);
 
@@ -61,7 +61,7 @@ public class BookServiceImpl implements BookService {
         Category category = categoryRepository.findById(bookingRequestDto.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
-        modelMapper.map(bookingRequestDto, book);
+        genericMapper.convert(bookingRequestDto, Book.class);
         book.setCategory(category);
 
         return bookRepository.save(book);

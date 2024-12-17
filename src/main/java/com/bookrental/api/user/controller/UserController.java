@@ -5,6 +5,8 @@ import com.bookrental.api.user.model.requestDto.UserSignInDto;
 import com.bookrental.api.user.service.UserService;
 import com.bookrental.endpoints.EndPointConstants;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,20 +18,28 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public User save(@RequestBody User user) {
-        return userService.save(user);
-
+    public ResponseEntity<User> save(@RequestBody User user) {
+        User savedUser = userService.save(user);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(savedUser);
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody UserSignInDto userSignInDto) {
-        return userService.verify(userSignInDto);
+    public ResponseEntity<String> login(@RequestBody UserSignInDto userSignInDto) {
+        String token = userService.verify(userSignInDto);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(token);
     }
 
     @GetMapping(EndPointConstants.GET_BY_ID)
-    public User getById(@PathVariable Long id) {
-        return userService.getById(id);
-    }
+    public ResponseEntity<User> getById(@PathVariable Long id) {
 
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userService.getById(id));
+
+    }
 
 }
