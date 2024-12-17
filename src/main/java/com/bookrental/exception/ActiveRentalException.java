@@ -1,5 +1,8 @@
 package com.bookrental.exception;
 
+import lombok.Getter;
+
+
 public class ActiveRentalException extends RuntimeException {
     private final Long bookId;
 
