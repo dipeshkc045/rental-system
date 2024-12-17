@@ -105,7 +105,6 @@ public class User {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
     @Hidden
     private Set<UsersRoles> roles;
 }
