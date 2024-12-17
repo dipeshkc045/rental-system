@@ -50,7 +50,7 @@ public class BookTransaction {
     @Column(name = "transaction_code", nullable = false, unique = true, length = 20)
     @Schema(
             description = "Unique transaction code",
-            example = "RENT-12345",
+            defaultValue = "RENT-12345",
             nullable = false
     )
     private String code;
@@ -122,7 +122,6 @@ public class BookTransaction {
     @Schema(description = "User associated with the transaction")
     private User user;
 
-    // Validation method to ensure end date is after start date
     @PrePersist
     @PreUpdate
     private void validateDates() {

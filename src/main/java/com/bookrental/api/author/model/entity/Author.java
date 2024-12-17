@@ -45,7 +45,7 @@ public class Author {
     @Column(name = "full_name", nullable = false, length = 100)
     @Schema(
             description = "Full name of the author",
-            example = "Dipesh Chaudhary",
+            defaultValue = "Dipesh Chaudhary",
             minLength = 3,
             maxLength = 100,
             nullable = false
@@ -57,7 +57,7 @@ public class Author {
     @Column(name = "email", unique = true, nullable = false, length = 100)
     @Schema(
             description = "Author's email address",
-            example = "dipeshc045@gmail.com",
+            defaultValue = "dipeshc045@gmail.com",
             nullable = false
     )
     private String email;
@@ -67,7 +67,7 @@ public class Author {
     @Column(name = "mobile_number", unique = true, nullable = false, length = 15)
     @Schema(
             description = "Author's mobile number",
-            example = "+9779868099976",
+            defaultValue = "+9779868099976",
             minLength = 10,
             maxLength = 15,
             nullable = false

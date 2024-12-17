@@ -48,7 +48,7 @@ public class User {
             minLength = 3,
             maxLength = 25,
             nullable = false,
-            example = "John Doe"
+            defaultValue = "John Doe"
     )
     private String name;
 
@@ -58,7 +58,7 @@ public class User {
     @Schema(
             description = "User's email address",
             nullable = false,
-            example = "johndoe@example.com"
+            defaultValue = "johndoe@example.com"
     )
     private String email;
 
@@ -77,7 +77,7 @@ public class User {
             description = "User's mobile number",
             minLength = 10,
             maxLength = 15,
-            example = "+9779868090501"
+            defaultValue = "+9779868090501"
     )
     private String mobileNo;
 
@@ -87,7 +87,7 @@ public class User {
             description = "User's address",
             minLength = 3,
             maxLength = 255,
-            example = "Kathmandu,Nepal"
+            defaultValue = "Kathmandu,Nepal"
     )
     private String address;
 

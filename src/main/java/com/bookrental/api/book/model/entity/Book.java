@@ -50,7 +50,7 @@ public class Book {
     @Column(name = "book_name", nullable = false, length = 255)
     @Schema(
             description = "Title of the book",
-            example = "The Great Adventure",
+            defaultValue = "The Great Adventure",
             minLength = 3,
             maxLength = 255,
             nullable = false
@@ -63,7 +63,7 @@ public class Book {
     @Column(name = "number_of_pages", nullable = false)
     @Schema(
             description = "Total number of pages in the book",
-            example = "300",
+            defaultValue = "300",
             nullable = false
     )
     private Integer noOfPages;
@@ -80,7 +80,7 @@ public class Book {
  //   @Column(name = "rating", precision = 3, scale = 2)
     @Schema(
             description = "Book rating out of 5",
-            example = "4.5",
+            defaultValue = "4.5",
             nullable = true
     )
     private Double rating;
@@ -91,7 +91,7 @@ public class Book {
     @Column(name = "stock_count", nullable = false)
     @Schema(
             description = "Number of books available in stock",
-            example = "5",
+            defaultValue = "5",
             nullable = false
     )
     private Integer stockCount;
@@ -99,7 +99,7 @@ public class Book {
     @NotNull(message = "Published date is required")
     @Column(name = "published_date", nullable = false)
     @Schema(
-            description = "Date when the book was published",
+            defaultValue = "Date when the book was published",
             nullable = false
     )
     private LocalDate publishedDate;

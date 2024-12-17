@@ -43,7 +43,7 @@ public class Category {
     @Column(name = "category_name", unique = true, nullable = false, length = 25)
     @Schema(
             description = "Name of the book category",
-            example = "Fiction",
+            defaultValue = "Fiction",
             minLength = 3,
             maxLength = 25,
             nullable = false
@@ -54,7 +54,7 @@ public class Category {
     @Column(name = "category_description", length = 60)
     @Schema(
             description = "Description of the book category",
-            example = "Books of imaginative fiction",
+            defaultValue = "Books of imaginative fiction",
             minLength = 3,
             maxLength = 60
     )

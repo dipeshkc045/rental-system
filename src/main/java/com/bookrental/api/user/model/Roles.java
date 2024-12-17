@@ -31,7 +31,7 @@ public class Roles {
     @Column(name = "role_name", unique = true, nullable = false, length = 25)
     @Schema(
             description = "Name of the role",
-            example = "ADMIN",
+            defaultValue = "ADMIN",
             minLength = 3,
             maxLength = 25,
             nullable = false
