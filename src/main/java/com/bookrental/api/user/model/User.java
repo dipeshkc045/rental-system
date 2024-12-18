@@ -104,7 +104,7 @@ public class User {
     @Hidden
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Hidden
     private Set<UsersRoles> roles;
 }
