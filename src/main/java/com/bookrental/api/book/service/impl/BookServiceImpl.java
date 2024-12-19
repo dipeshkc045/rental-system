@@ -24,14 +24,14 @@ public class BookServiceImpl implements BookService {
     private final AuthorRepository authorRepository;
     private final GenericMapper genericMapper;
 
-    @Transactional
+
     @Override
     public Book saveBook(BookRequestDto bookRequestDto) {
         Category category = categoryRepository.findById(bookRequestDto.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
         List<Author> authorList = authorRepository.findAllById(bookRequestDto.getAuthors());
-        Book book = GenericMapper.convert(bookRequestDto, Book.class);
+        Book book = genericMapper.convert(bookRequestDto, Book.class);
         book.setCategory(category);
         book.setAuthors(authorList);
 
@@ -48,7 +48,7 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findById(id).orElse(null);
     }
 
-    @Transactional
+
     @Override
     public Book updateBooking(Long id, BookRequestDto bookingRequestDto) {
         Book book = bookRepository.findById(id)
@@ -67,7 +67,7 @@ public class BookServiceImpl implements BookService {
         return bookRepository.save(book);
     }
 
-    @Transactional
+
     @Override
     public void deleteBooking(Long id) {
         bookRepository.deleteById(id);

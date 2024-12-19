@@ -21,7 +21,6 @@ public class UserRoleImpl implements UserRoleService {
     private final RoleRepository roleRepository;
 
     @Override
-    @Transactional
     public UsersRoles save(UserRoleRequestDto userRole) {
         User user = userRepository.findById(userRole.getUserId()).orElse(null);
         Roles role = roleRepository.findById(userRole.getRoleId()).orElse(null);

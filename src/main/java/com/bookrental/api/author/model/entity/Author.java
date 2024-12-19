@@ -11,8 +11,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -87,11 +87,10 @@ public class Author {
     @JsonBackReference
     @Hidden
     @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
-    @Builder.Default
-    private Set<Book> books = new HashSet<>();
+    private List<Book> books = new ArrayList<>();
+
 
     @Column(name = "is_active", nullable = false)
     @Schema(description = "Author account status", defaultValue = "true")
-    @Builder.Default
     private boolean isActive = true;
 }

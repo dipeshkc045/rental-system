@@ -3,7 +3,6 @@ package com.bookrental.api.book.model.entity;
 
 import com.bookrental.api.author.model.entity.Author;
 import com.bookrental.api.category.model.entity.Category;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -70,14 +69,11 @@ public class Book {
 
     @Pattern(regexp = "ISBN(?:-13)?:?\\x20*(?=.{17}$)97(?:8|9)([ -])\\d{1,5}\\1\\d{1,7}\\1\\d{1,6}\\1\\d$",
             message = "Invalid ISBN format")
-    @Column(name = "isbn", unique = true, length = 13)
+    @Column(name = "isbn", unique = true, length = 30)
     @Schema(description = "International Standard Book Number", example = "ISBN-13: 978-1-4028-9462-6")
     private String isbn;
 
-//
-//    @DecimalMin(value = "0.0", message = "Rating must be at least 0")
-//    @DecimalMax(value = "5.0", message = "Rating cannot exceed 5")
- //   @Column(name = "rating", precision = 3, scale = 2)
+
     @Schema(
             description = "Book rating out of 5",
             defaultValue = "4.5",
@@ -123,17 +119,17 @@ public class Book {
     @Builder.Default
     private boolean isActive = true;
 
-    @JsonManagedReference
+
     @NotEmpty(message = "At least one author is required")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "book_author",
             joinColumns = @JoinColumn(name = "book_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "author_id", nullable = false),
             uniqueConstraints = @UniqueConstraint(columnNames = {"book_id", "author_id"})
     )
-    @Builder.Default
     private List<Author> authors = new ArrayList<>();
+
 
     @NotNull(message = "Category is required")
     @ManyToOne(fetch = FetchType.EAGER)

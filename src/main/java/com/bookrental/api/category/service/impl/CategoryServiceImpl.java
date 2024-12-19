@@ -15,11 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
-    private final GenericMapper genericMapper;
-
+private final GenericMapper genericMapper;
 
     @Override
-    @Transactional
     public Category saveCategory(CategoryRequestDto categoryRequestDto) {
         Category category = genericMapper.convert(categoryRequestDto, Category.class);
         return categoryRepository.save(category);
@@ -37,7 +35,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional
     public Category updateCategory(Long id, CategoryRequestDto categoryRequestDto) {
         Category book = categoryRepository.findById(id).orElse(null);
         assert book != null;
@@ -49,7 +46,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional
     public void deleteCategory(Long id) {
         Category existedCategory= categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
         categoryRepository.deleteById(existedCategory.getId());

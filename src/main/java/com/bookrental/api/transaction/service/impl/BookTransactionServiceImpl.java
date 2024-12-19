@@ -24,7 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.UUID;
+
+import static com.bookrental.utils.Utils.generateTransactionCode;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +51,7 @@ public class BookTransactionServiceImpl implements BookTransactionService {
             return handleBookRenting(requestDto, book, user);
         } else if (requestDto.getRentStatus().equals(RENT_TYPE.RETURN)) {
             validateReturnDateInPast(requestDto);
-              validateReturnDate(requestDto, book);
+            validateReturnDate(requestDto, book);
             return handleBookReturning(requestDto, book);
         } else {
             throw new IllegalArgumentException("Unknown rent status");
@@ -88,7 +89,7 @@ public class BookTransactionServiceImpl implements BookTransactionService {
         BookTransaction transaction = BookTransaction.builder()
                 .book(book)
                 .user(user)
-                .code(UUID.randomUUID().toString())
+                .code(generateTransactionCode())
                 .fromDate(requestDto.getFromDate())
                 .toDate(requestDto.getToDate())
                 .rentStatus(RENT_TYPE.RENT)

@@ -7,7 +7,6 @@ import com.bookrental.api.author.service.AuthorService;
 import com.bookrental.resourceconverter.GenericMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,8 +16,9 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
     private final GenericMapper genericMapper;
 
+
     @Override
-    @Transactional
+
     public Author saveAuthor(AuthorRequestDto authorRequestDto) {
         Author author = genericMapper.convert(authorRequestDto, Author.class);
         return authorRepository.save(author);
@@ -35,7 +35,6 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    @Transactional
     public Author updateAuthor(Long id, AuthorRequestDto bookingRequestDto) {
         Author book = authorRepository.findById(id).orElse(null);
         assert book != null;
@@ -47,7 +46,6 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    @Transactional
     public void deleteAuthor(Long id) {
         Author existingBook = authorRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
         authorRepository.deleteById(existingBook.getId());

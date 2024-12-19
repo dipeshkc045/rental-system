@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
-@ToString
 @Table(
         name = "user_roles_tb",
         uniqueConstraints = {

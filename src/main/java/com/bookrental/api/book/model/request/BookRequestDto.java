@@ -47,5 +47,6 @@ public class BookRequestDto {
 
     @NotEmpty(message = "At least one author is required")
     @Size(max = 10, message = "Maximum 10 authors are allowed")
-    private List<@NotNull(message = "Author ID cannot be null") @Positive(message = "Author ID must be a positive number") Long> authors;
+    @NotNull(message = "Author ID cannot be null")
+    private List<Long> authors;
 }

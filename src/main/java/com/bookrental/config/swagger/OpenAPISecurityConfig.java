@@ -10,11 +10,13 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
 
 @Configuration
+@CrossOrigin()
 public class OpenAPISecurityConfig {
 
     @Bean
