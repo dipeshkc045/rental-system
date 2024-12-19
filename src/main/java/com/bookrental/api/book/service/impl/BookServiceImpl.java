@@ -31,7 +31,7 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
         List<Author> authorList = authorRepository.findAllById(bookRequestDto.getAuthors());
-        Book book = genericMapper.convert(bookRequestDto, Book.class);
+        Book book = GenericMapper.convert(bookRequestDto, Book.class);
         book.setCategory(category);
         book.setAuthors(authorList);
 

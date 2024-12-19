@@ -21,3 +21,27 @@ springdoc:
 jwt:
   secret: dGhpc2lzYXNhbXBsZXNlY3JldGtleWZvcmp3dGF1dGhlbnRpY2F0aW9u
   expiration: 86400000
+
+#
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/postgres
+#    username: postgres
+#    password: postgres
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    open-in-view: false
+#
+#server:
+#  port: 8080
+#
+#springdoc:
+#  swagger-ui:
+#    path: /index.html
+#
+#jwt:
+#  secret: dGhpc2lzYXNhbXBsZXNlY3JldGtleWZvcmp3dGF1dGhlbnRpY2F0aW9u
+#  expiration: 86400000
