@@ -67,7 +67,7 @@ public class SecurityConfig {
 
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
+        config.addAllowedOrigin("https://rental-system-lhqg.onrender.com");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
