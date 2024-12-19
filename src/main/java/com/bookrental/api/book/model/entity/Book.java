@@ -3,6 +3,7 @@ package com.bookrental.api.book.model.entity;
 
 import com.bookrental.api.author.model.entity.Author;
 import com.bookrental.api.category.model.entity.Category;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -120,8 +121,9 @@ public class Book {
     private boolean isActive = true;
 
 
+    @JsonManagedReference
     @NotEmpty(message = "At least one author is required")
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "book_author",
             joinColumns = @JoinColumn(name = "book_id", nullable = false),

@@ -16,7 +16,6 @@ import java.util.List;
 
 
 @Configuration
-@CrossOrigin(value = "*",allowedHeaders = "*",origins = "*")
 public class OpenAPISecurityConfig {
 
     @Bean
