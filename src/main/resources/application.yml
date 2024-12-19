@@ -6,7 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     open-in-view: false
@@ -21,7 +21,7 @@ springdoc:
 jwt:
   secret: dGhpc2lzYXNhbXBsZXNlY3JldGtleWZvcmp3dGF1dGhlbnRpY2F0aW9u
   expiration: 86400000
-
+#
 #
 #spring:
 #  datasource:
