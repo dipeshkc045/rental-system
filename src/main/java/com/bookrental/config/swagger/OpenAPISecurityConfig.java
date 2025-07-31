@@ -32,7 +32,8 @@ public class OpenAPISecurityConfig {
                         .license(new License()
                                 .name("Apache 2.0")
                                 .url("http://www.apache.org/licenses/LICENSE-2.0.html")))
-                .servers(List.of(new Server().url("http://localhost:8080").description("local"),new Server().url("https://rental-system-lhqg.onrender.com").description("prod")))
+                .servers(List.of(new Server().url("http://localhost:8080").description("local"),
+                        new Server().url("https://rental-system-lhqg.onrender.com").description("prod")))
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
                                 .name("Authorization")

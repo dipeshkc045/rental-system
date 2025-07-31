@@ -22,3 +22,7 @@ springdoc:
 jwt:
   secret: dGhpc2lzYXNhbXBsZXNlY3JldGtleWZvcmp3dGF1dGhlbnRpY2F0aW9u
   expiration: 86400000
+
+
+#
+#https://rental-system-lxoz.onrender.com/swagger-ui/index.html
