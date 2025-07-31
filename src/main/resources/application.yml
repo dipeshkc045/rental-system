@@ -1,50 +1,24 @@
 spring:
   datasource:
-    url: jdbc:postgresql://dpg-ctg73jrgbbvc73au8eo0-a.oregon-postgres.render.com:5432/library_db_396l
-    username: library_db_396l_user
-    password: AkvpYTeAC3RuT6naDevx8eUUluwg3tWE
+    url: jdbc:postgresql://dpg-d25jtsk9c44c73dek3m0-a.oregon-postgres.render.com:5432/bookrentaldb_2mdb
+    username: bookrentaldb_2mdb_user
+    password: QPQYMQgnX0Mxy7TJtIxqX9TLNssj1Yta
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: none
-      dialect: org.hibernate.dialect.MySQL8Dialect
+      dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     open-in-view: false
 
 server:
   port: 8080
 
-
-
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
-
 jwt:
   secret: dGhpc2lzYXNhbXBsZXNlY3JldGtleWZvcmp3dGF1dGhlbnRpY2F0aW9u
   expiration: 86400000
-
-#
-#spring:
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/postgres
-#    username: postgres
-#    password: postgres
-#    driver-class-name: org.postgresql.Driver
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-#    open-in-view: false
-#
-#server:
-#  port: 8080
-#
-#springdoc:
-#  swagger-ui:
-#    path: /index.html
-#
-#jwt:
-#  secret: dGhpc2lzYXNhbXBsZXNlY3JldGtleWZvcmp3dGF1dGhlbnRpY2F0aW9u
-#  expiration: 86400000
